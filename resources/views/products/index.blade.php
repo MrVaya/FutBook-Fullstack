@@ -1,4 +1,4 @@
-docker exec -it laravel-db mysql -u laravel -p<x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center flex-wrap gap-4">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
