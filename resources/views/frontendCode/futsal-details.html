@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futsal Details</title>
+    <link rel="stylesheet" href="Asset/Css/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="Asset/Css/bootstrap-5.3.6-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Asset/Css/bootstrap-5.3.6-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="Asset/Css/style.css">
+    <link rel="stylesheet" href="Asset/Css/responsive.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --light-green: #e8f8f5;
+        }
+
+        .banner-section {
+            height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('Asset/image/bfit.jpg'); /* Default, will be overridden */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+        }
+
+        .futsal-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .location-text {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            color: var(--primary-green);
+            font-weight: 700;
+            border-bottom: 3px solid var(--primary-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--light-green);
+            border-radius: 8px;
+        }
+
+        .amenity-item i {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .booking-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .price-tag {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .time-slot {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .time-slot.disabled {
+            background: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .time-slot.available {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .time-slot.booked {
+            background: #ffebee;
+            color: #e74c3c;
+            cursor: not-allowed;
+        }
+
+        .time-slot.selected {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .date-picker {
+            position: relative;
+        }
+
+        .date-picker i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-green);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-white fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="Asset/image/bfit.jpg" height="100px" width="150px" alt="Futsal Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="ti-align-justify"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mobile-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Products">Futsal Venue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Contact-us.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Section -->
+    <section class="banner-section d-flex align-items-center" id="futsalBanner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="futsal-name"></h1>
+                    <p class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span id="futsalLocationText"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Left Panel -->
+                <div class="col-lg-8">
+                    <!-- About Section -->
+                    <div class="mb-5">
+                        <h2 class="section-title">About This Futsal</h2>
+                        <p id="futsalAboutText"></p>
+                    </div>
+
+                    <!-- Features & Amenities Section -->
+                    <div class="mb-5">
+                        <h2 class="section-title">Features & Amenities</h2>
+                        <div class="amenities-grid" id="amenitiesGrid">
+                            <!-- Amenities will be populated here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Booking -->
+                <div class="col-lg-4">
+                    <div class="booking-panel">
+                        <h2 class="section-title">Book Your Slot</h2>
+                        <p class="price-tag mb-4" id="futsalPrice"></p>
+
+                        <!-- Date Picker -->
+                        <div class="mb-4">
+                            <label for="bookingDate" class="form-label">Select Date:</label>
+                            <div class="date-picker">
+                                <input type="date" class="form-control" id="bookingDate" value="2025-06-10">
+                                <i class="bi bi-calendar"></i>
+                            </div>
+                        </div>
+
+                        <!-- Time Slots -->
+                        <div class="mb-4">
+                            <label class="form-label">Select Time:</label>
+                            <div class="time-slots" id="timeSlotsContainer">
+                                <!-- Time slots will be populated by JavaScript -->
+                            </div>
+                            <small class="text-muted d-block mt-2"><i class="bi bi-info-circle me-1"></i> Select a time slot to continue</small>
+                        </div>
+
+                        <button class="btn btn-success w-100 py-3" id="bookNowBtn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Details Section -->
+            <div class="row mt-5">
+                <div class="col-lg-8">
+                    <div class="mb-5">
+                        <h2 class="section-title">Pricing Details</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Price (NRs./hour)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pricingDetailsTableBody">
+                                    <!-- Pricing details will be populated here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="row mt-5">
+                <div class="col-lg-8">
+                    <div class="mb-5">
+                        <h2 class="section-title">Contact Information</h2>
+                        <div class="card p-3">
+                            <p class="mb-2"><i class="bi bi-telephone-fill me-2 primary-green-icon"></i> Phone: <span id="contactPhone"></span></p>
+                            <p class="mb-0"><i class="bi bi-geo-alt-fill me-2 primary-green-icon"></i> Location: <span id="contactLocation"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">© 2025 Futsal Booking. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import futsals from './Asset/js/futsal-data.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const futsalId = parseInt(urlParams.get('id'));
+            console.log('Futsal ID from URL:', futsalId);
+
+            const futsal = futsals.find(f => f.id === futsalId);
+            console.log('Found futsal object:', futsal);
+
+            if (!futsal) {
+                console.log('Futsal not found, redirecting to index.html');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Update page title
+            document.title = `${futsal.name} - Futsal Details`;
+
+            // Update banner section
+            document.getElementById('futsalBanner').style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${futsal.image}')`;
+            document.querySelector('.futsal-name').textContent = futsal.name;
+            document.getElementById('futsalLocationText').textContent = futsal.location;
+
+            // Update About section
+            document.getElementById('futsalAboutText').textContent = futsal.about;
+
+            // Update Features & Amenities
+            const amenitiesGrid = document.getElementById('amenitiesGrid');
+            console.log('Amenities Grid Element:', amenitiesGrid);
+            amenitiesGrid.innerHTML = ''; // Clear existing content
+            futsal.amenities.forEach(amenity => {
+                const amenityItem = document.createElement('div');
+                amenityItem.classList.add('amenity-item');
+                amenityItem.innerHTML = `
+                    <i class="bi ${amenity.icon}"></i>
+                    <span>${amenity.name}</span>
+                `;
+                amenitiesGrid.appendChild(amenityItem);
+            });
+
+            // Update price
+            document.getElementById('futsalPrice').textContent = `NRs. ${futsal.price.toLocaleString()} /hour`;
+
+            // Populate Pricing Details
+            const pricingDetailsTableBody = document.getElementById('pricingDetailsTableBody');
+            console.log('Pricing Details Table Body Element:', pricingDetailsTableBody);
+            pricingDetailsTableBody.innerHTML = `
+                <tr>
+                    <td>Weekday (7AM - 3PM)</td>
+                    <td>${futsal.pricing.weekday.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>4PM - 7PM</td>
+                    <td>${futsal.pricing["4PM-7PM"].toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>Public Holidays / Saturday</td>
+                    <td>${futsal.pricing.public_holidays_saturday.toLocaleString()}</td>
+                </tr>
+            `;
+
+            // Populate Contact Information
+            document.getElementById('contactPhone').textContent = futsal.contact.phone;
+            document.getElementById('contactLocation').textContent = futsal.contact.location;
+
+            // Get current hour in Nepal (Asia/Kathmandu timezone)
+            function getCurrentNepalHour() {
+                const now = new Date();
+                const formatter = new Intl.DateTimeFormat('en-US', {
+                    hour: '2-digit',
+                    hourCycle: 'h23',
+                    timeZone: 'Asia/Kathmandu'
+                });
+                return parseInt(formatter.format(now));
+            }
+
+            const currentNepalHour = getCurrentNepalHour();
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            const selectedDateInput = document.getElementById('bookingDate');
+            console.log('Booking Date Input Element:', selectedDateInput);
+            const selectedDate = new Date(selectedDateInput.value).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            console.log('Selected Date (initial):', selectedDate);
+
+            // Time slot rendering and selection
+            const timeSlotsData = [
+                { time: "06-07", status: "available" },
+                { time: "07-08", status: "available" },
+                { time: "08-09", status: "available" },
+                { time: "09-10", status: "available" },
+                { time: "10-11", status: "available" },
+                { time: "11-12", status: "available" },
+                { time: "12-13", status: "available" },
+                { time: "13-14", status: "available" },
+                { time: "14-15", status: "available" },
+                { time: "15-16", status: "available" },
+                { time: "16-17", status: "available" },
+                { time: "17-18", status: "available" },
+                { time: "18-19", status: "available" },
+                { time: "19-20", status: "available" },
+                { time: "20-21", status: "available" }
+            ];
+
+            const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+            console.log('Time Slots Container Element:', timeSlotsContainer);
+            timeSlotsContainer.innerHTML = ''; // Clear existing content
+
+            let anySlotSelectable = false; // Track if any slot is available for selection
+
+            timeSlotsData.forEach(slot => {
+                const timeSlotDiv = document.createElement('div');
+                const slotStartHour = parseInt(slot.time.split('-')[0]);
+
+                let currentStatus = slot.status; // Start with default status from data
+
+                // If it's today's date, disable past hours
+                if (selectedDate === today && slotStartHour <= currentNepalHour) {
+                    currentStatus = "disabled";
+                }
+                // Example: set a specific slot as booked (red)
+                if (slot.time === "14-15") {
+                    currentStatus = "booked";
+                }
+                 // Example: set a specific slot as selected (black/highlight)
+                 if (slot.time === "15-16") {
+                    currentStatus = "selected";
+                }
+
+                timeSlotDiv.classList.add('time-slot', currentStatus);
+                timeSlotDiv.setAttribute('data-time', slot.time);
+                timeSlotDiv.textContent = `${slot.time.split('-')[0]}:00 - ${slot.time.split('-')[1]}:00`;
+
+                if (currentStatus === 'available' || currentStatus === 'selected') {
+                    timeSlotDiv.addEventListener('click', function() {
+                        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                        this.classList.add('selected');
+                        document.getElementById('bookNowBtn').disabled = false;
+                    });
+                    anySlotSelectable = true; // Mark that at least one slot is selectable
+                } else {
+                    timeSlotDiv.classList.add('disabled');
+                }
+                timeSlotsContainer.appendChild(timeSlotDiv);
+            });
+
+            // Initial state of Book Now button
+            document.getElementById('bookNowBtn').disabled = !document.querySelector('.time-slot.selected') && !anySlotSelectable;
+
+            // Add event listener for date change to re-render time slots
+            selectedDateInput.addEventListener('change', function() {
+                const newSelectedDate = new Date(this.value).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                console.log('New Selected Date:', newSelectedDate);
+                timeSlotsContainer.innerHTML = ''; // Clear existing content
+                anySlotSelectable = false; // Reset for re-rendering
+
+                timeSlotsData.forEach(slot => {
+                    const timeSlotDiv = document.createElement('div');
+                    const slotStartHour = parseInt(slot.time.split('-')[0]);
+                    let currentStatus = slot.status;
+
+                    if (newSelectedDate === today && slotStartHour <= currentNepalHour) {
+                        currentStatus = "disabled";
+                    }
+                     // Example: set a specific slot as booked (red)
+                    if (slot.time === "14-15") {
+                        currentStatus = "booked";
+                    }
+                    // Example: set a specific slot as selected (black/highlight)
+                    if (slot.time === "15-16") {
+                        currentStatus = "selected";
+                    }
+
+                    timeSlotDiv.classList.add('time-slot', currentStatus);
+                    timeSlotDiv.setAttribute('data-time', slot.time);
+                    timeSlotDiv.textContent = `${slot.time.split('-')[0]}:00 - ${slot.time.split('-')[1]}:00`;
+
+                    if (currentStatus === 'available' || currentStatus === 'selected') {
+                        timeSlotDiv.addEventListener('click', function() {
+                            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                            this.classList.add('selected');
+                            document.getElementById('bookNowBtn').disabled = false;
+                        });
+                        anySlotSelectable = true;
+                    } else {
+                        timeSlotDiv.classList.add('disabled');
+                    }
+                    timeSlotsContainer.appendChild(timeSlotDiv);
+                });
+                document.getElementById('bookNowBtn').disabled = !document.querySelector('.time-slot.selected') && !anySlotSelectable;
+            });
+
+            // Book Now button functionality
+            document.getElementById('bookNowBtn').addEventListener('click', function() {
+                const date = document.getElementById('bookingDate').value;
+                const selectedTimeSlot = document.querySelector('.time-slot.selected');
+
+                if (!selectedTimeSlot) {
+                    alert('Please select a time slot.');
+                    return;
+                }
+
+                const time = selectedTimeSlot.getAttribute('data-time');
+                // Ensure courtType is correctly passed. The first amenity name is assumed as court type.
+                const courtType = futsal.amenities.length > 0 ? futsal.amenities[0].name : '5-a-side';
+                const duration = "1 hour";
+
+                const params = new URLSearchParams({
+                    futsalName: futsal.name,
+                    location: futsal.location,
+                    date: date,
+                    time: time,
+                    duration: duration,
+                    courtType: courtType,
+                    price: futsal.price,
+                    futsalThumbnail: futsal.thumbnail
+                });
+
+                window.location.href = `confirm-booking.html?${params.toString()}`;
+            });
+        });
+    </script>
+
+
+
+    <!-- Footer -->
+    <footer class="mt-0 d-flex flex-column justify-content-center"
+        style="flex: 0 0 50vh; min-height: 0; background: #f5f5f5;">
+        <div class="container h-100 d-flex flex-column justify-content-center">
+            <div class="row flex-grow-1 align-items-center">
+                <!-- Logo and Theme -->
+                <div class="col-lg-4 mb-4">
+                    <div class="logo mb-3">
+                        <img src="https://via.placeholder.com/150x50" alt="logo" class="img-fluid"
+                            style="max-height: 60px;">
+                    </div>
+                    <div class="theme">
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut
+                            quidem eum est provident, saepe expedita, ea debitis aliquam consequatur cupiditate
+                            iure nulla eveniet, alias enim asperiores consectetur maxime. Provident, asperiores.
+                        </p>
+                    </div>
+                    <div class="social-icons mt-3">
+                        <i class="bi bi-facebook"></i>
+                        <i class="bi bi-instagram"></i>
+                        <i class="bi bi-twitter-x"></i>
+                    </div>
+                </div>
+
+                <!-- Explore Links -->
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3 fw-bold">EXPLORE</h5>
+                    <div class="explore">
+                        <ul class="footer-list">
+                            <li><a href="">SHOP ALL</a></li>
+                            <li><a href="./index.html">HOME</a></li>
+                            <li><a href="">CATEGORY</a></li>
+                            <li><a href="./about.html">ABOUT COMPANY</a></li>
+                            <li><a href="./Contact-us.html">CONTACT US</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Support -->
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3 fw-bold">SUPPORT</h5>
+                    <ul class="footer-list">
+                        <li>CONTACT: +977 9846983690</li>
+                        <li><a href="">PAYMENT POLICY</a></li>
+                        <li><a href="">RETURNS & EXCHANGE</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-12 text-center copyright">
+                    <h6 class="fw-bold">COPYRIGHT 2025 / POWERED BY MR.VAYA</h6>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+
+</html> 
