@@ -15,6 +15,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @can('view items')
+                        <x-nav-link href="{{ route('items.index') }}" :active="request()->routeIs('items.index')">
+                            {{ __('Items') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -148,6 +153,11 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @can('view items')
+                <x-responsive-nav-link href="{{ route('items.index') }}" :active="request()->routeIs('items.index')">
+                    {{ __('Items') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
