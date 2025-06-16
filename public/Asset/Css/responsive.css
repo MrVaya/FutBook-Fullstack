@@ -1,0 +1,279 @@
+/* Extra small devices (phones, 576px and down) */
+@media (max-width: 576px) {
+    .navbar-brand img {
+        height: 60px;
+        width: 100px;
+    }
+
+    .home-banner-1 h1,
+    .home-banner-2 h1 {
+        font-size: 2rem;
+    }
+
+    .home-banner-1 h2,
+    .home-banner-2 h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .navbar-brand img {
+        height: 80px;
+        width: 120px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .navbar-brand img {
+        height: 90px;
+        width: 130px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .navbar-brand img {
+        height: 100px;
+        width: 150px;
+    }
+}
+
+/* Navigation Mobile Styles */
+@media (max-width: 991.98px) {
+    .mobile-nav {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+}
+
+/* Product Grid Responsive */
+@media (max-width: 767.98px) {
+    .col-6 {
+        padding: 0.5rem;
+    }
+}
+
+/* Footer Responsive */
+@media (max-width: 767.98px) {
+    footer {
+        text-align: center;
+    }
+
+    footer .col-md-4 {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Extra Large Devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Large Devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* Medium Devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .navbar-brand img {
+        height: 60px;
+        width: 100px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    .card-img-top {
+        height: 180px;
+    }
+}
+
+/* Small Devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .container {
+        max-width: 540px;
+    }
+
+    .navbar-brand img {
+        height: 50px;
+        width: 80px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    .card-img-top {
+        height: 160px;
+    }
+
+    .feature-box {
+        margin-bottom: 30px;
+    }
+}
+
+/* Extra Small Devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .navbar-brand img {
+        height: 40px;
+        width: 70px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-img-top {
+        height: 140px;
+    }
+
+    .feature-box {
+        margin-bottom: 20px;
+    }
+
+    .testimonial-box {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 8px 20px;
+    }
+}
+
+/* Navigation Responsive Styles */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0 !important;
+    }
+}
+
+/* Footer Responsive Styles */
+@media (max-width: 991px) {
+    .footer {
+        text-align: center;
+    }
+
+    .footer .col-lg-4 {
+        margin-bottom: 30px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .footer-links {
+        margin-bottom: 20px;
+    }
+}
+
+/* Form Responsive Styles */
+@media (max-width: 576px) {
+    .form-control {
+        font-size: 14px;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+/* Card Responsive Styles */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+}
+
+/* Section Padding Responsive */
+@media (max-width: 991px) {
+    .section {
+        padding: 60px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 40px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .section {
+        padding: 30px 0;
+    }
+} 

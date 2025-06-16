@@ -17,7 +17,9 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::latest()->paginate(10);
+            $products = cache()->remember('products.all', 3600, function () {
+                return Product::latest()->paginate(10);
+            });
             return view('products.index', compact('products'));
         } catch (\Exception $e) {
             Log::error('Error fetching products: ' . $e->getMessage());
