@@ -50,6 +50,8 @@ class ProductController extends Controller
 
             Product::create($validatedData);
 
+            cache()->forget('products.all');
+
             return redirect()->route('products.index')
                 ->with('success', 'Product created successfully.');
         } catch (\Exception $e) {
@@ -113,6 +115,8 @@ class ProductController extends Controller
 
             $product->update($validatedData);
 
+            cache()->forget('products.all');
+
             return redirect()->route('products.index')
                 ->with('success', 'Product updated successfully.');
         } catch (ModelNotFoundException $e) {
@@ -137,6 +141,8 @@ class ProductController extends Controller
             }
             
             $product->delete();
+
+            cache()->forget('products.all');
 
             return redirect()->route('products.index')
                 ->with('success', 'Product deleted successfully.');

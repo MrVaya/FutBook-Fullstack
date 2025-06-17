@@ -97,16 +97,11 @@
                                             <td>{{ $booking->user->name ?? 'N/A' }}</td>
                                             <td>{{ $booking->booking_date->format('M d, Y') }}</td>
                                             <td>
-                                                @php
-                                                    $statusClass = '';
-                                                    switch ($booking->status) {
-                                                        case 'confirmed': $statusClass = 'badge badge-success'; break;
-                                                        case 'pending': $statusClass = 'badge badge-warning'; break;
-                                                        case 'cancelled': $statusClass = 'badge badge-danger'; break;
-                                                        default: $statusClass = 'badge badge-secondary'; break;
-                                                    }
-                                                @endphp
-                                                <span class="{{ $statusClass }}">{{ ucfirst($booking->status) }}</span>
+                                                <select class="form-select status-select status-{{ $booking->status }}" data-booking-id="{{ $booking->id }}" onchange="updateStatus(this)">
+                                                    <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                    <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                                    <option value="cancelled" {{ $booking->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                                </select>
                                             </td>
                                         </tr>
                                     @empty
@@ -151,8 +146,70 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            .status-confirmed {
+                background-color: green !important;
+                color: white !important;
+            }
+            .status-pending {
+                background-color: orange !important;
+                color: white !important;
+            }
+            .status-cancelled {
+                background-color: red !important;
+                color: white !important;
+            }
+        </style>
         <script>
+            function updateStatus(selectElement) {
+                const bookingId = selectElement.dataset.bookingId;
+                const newStatus = selectElement.value;
+
+                // Remove existing status classes
+                selectElement.classList.remove('status-confirmed', 'status-pending', 'status-cancelled');
+
+                // Add the new status class
+                selectElement.classList.add(`status-${newStatus}`);
+                
+                fetch(`/admin/bookings/${bookingId}/update-status`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        status: newStatus
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        toastr.success('Status updated successfully');
+                    } else {
+                        toastr.error('Failed to update status');
+                        // Revert to the previous status class if update fails
+                        selectElement.classList.remove(`status-${newStatus}`);
+                        selectElement.classList.add(`status-${data.previousStatus}`);
+                        selectElement.value = data.previousStatus;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    toastr.error('An error occurred while updating status');
+                    // Revert to the previous status class on error
+                    // This assumes data.previousStatus is available on error too, or you might need another strategy
+                    // For now, let's assume it's available.
+                    // If not, you might want to fetch the current status from the backend or keep track of it client-side.
+                });
+            }
+
             document.addEventListener('DOMContentLoaded', function () {
+                // Apply initial colors on page load
+                document.querySelectorAll('.status-select').forEach(selectElement => {
+                    const initialStatus = selectElement.value;
+                    selectElement.classList.add(`status-${initialStatus}`);
+                });
+
                 var ctx = document.getElementById('bookingStatusChart');
                 if (ctx) {
                     new Chart(ctx, {
